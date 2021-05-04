@@ -41,7 +41,7 @@ public class PostgresConnect {
 				// Display values
 				System.out.print("ID: " + id);
 				System.out.print(", FirstName: " + firstname);
-				System.out.println(", LastName: " + lastname);
+				System.out.print(", LastName: " + lastname);
 				System.out.print(", Age: " + age);
 				System.out.print(", Gender: " + gender);
 				System.out.print(", BookingDate: " + booking_date);
@@ -61,7 +61,7 @@ public class PostgresConnect {
 				// Display values
 				System.out.print("ID: " + id);
 				System.out.print(", Name: " + name);
-				System.out.println(", LastName: " + lastname);
+				System.out.print(", LastName: " + lastname);
 				System.out.print(", Address: " + address);
 				System.out.println();
 			}
