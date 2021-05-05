@@ -18,7 +18,9 @@ public class PostgresConnect {
 		 */
 
 		try {
-			String dbURL = "jdbc:postgresql://ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d7iqsm73upk6s5?sslmode=require&user=zlloqwdfjecgxu&password=fdc280399a51d7d96299a2a4b2ff5bb89a7681b18885c283b16a3e281fdcbab4";
+			String dbURL = System.getenv("JDBC_DATABASE_URL"); 
+
+//			String dbURL = "jdbc:postgresql://ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d7iqsm73upk6s5?sslmode=require&user=zlloqwdfjecgxu&password=fdc280399a51d7d96299a2a4b2ff5bb89a7681b18885c283b16a3e281fdcbab4";
 
 			Connection conn = DriverManager.getConnection(dbURL);
 			if (conn != null) {
