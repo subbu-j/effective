@@ -13,16 +13,13 @@ public class PostgresConnect {
 	public static void main(String[] args) throws URISyntaxException {
 		/*
 		 * String dbUri = System.getenv("JDBC_DATABASE_URL"); 
-		 * String dbURL = "jdbc:postgresql://ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d7iqsm73upk6s5";
-		 * String username = "zlloqwdfjecgxu"; 
-		 * String password = "fdc280399a51d7d96299a2a4b2ff5bb89a7681b18885c283b16a3e281fdcbab4";
+		 * String dbURL = "jdbc:postgresql://ec2-54-216-17-9.eu-west-1.compute.amazonaws.com:5432/d1fd9aa08ke6vm";
+		 * String username = "pjmxmueyokcrsz"; 
+		 * String password = "2fc4629c034930453c6f2f1dde682b4c833d88c0fa77a9af0f67e485a7aebcb6";
 		 * Connection conn = DriverManager.getConnection(dbURL,username,password);
 		 */
 
 		try {
-//			String dbURL = System.getenv("JDBC_DATABASE_URL"); 
-
-//			String dbURL = "jdbc:postgresql://ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d7iqsm73upk6s5?sslmode=require&user=zlloqwdfjecgxu&password=fdc280399a51d7d96299a2a4b2ff5bb89a7681b18885c283b16a3e281fdcbab4";
 			
 			URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
@@ -30,12 +27,13 @@ public class PostgresConnect {
 		    String password = dbUri.getUserInfo().split(":")[1];
 		    String dbURL = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
 			Connection conn = DriverManager.getConnection(dbURL, username, password);
+			
 			if (conn != null) {
 				System.out.println("Connected to Heroku Postgres");
 			}
 			
 			Statement stmt = conn.createStatement();
-			String sql = "select id, firstname, lastname, age, gender, booking_date, amount from booking";
+			String sql = "SELECT id, firstname, lastname, age, gender, booking_date, amount FROM BOOKING";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				// Retrieve by column name
@@ -57,7 +55,8 @@ public class PostgresConnect {
 				System.out.print(", Amount: " + amount);
 				System.out.println();
 			}
-			//rs.close();
+			
+			/*
 			String salesforce = "select id, name, last_name__c, address__c from salesforce.testcustomobject__c";
 			rs = stmt.executeQuery(salesforce);
 			while (rs.next()) {
@@ -74,7 +73,7 @@ public class PostgresConnect {
 				System.out.print(", Address: " + address);
 				System.out.println();
 			}
-			
+			*/
 			
 			//String insert = "INSERT INTO salesforce.testcustomobject__c(id, name, last_name__c, address__c) VALUES (26, 'test26', 'last26', 'address26')";
 			//int result = stmt.executeUpdate(insert);
@@ -82,7 +81,7 @@ public class PostgresConnect {
 			rs.close();
 			conn.close();
 		} catch (SQLException e) {
-			System.out.println("Error in connecting to Postgres");
+			System.out.println("Error occurred");
 			e.printStackTrace();
 		}
 
