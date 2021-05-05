@@ -1,5 +1,7 @@
 package com.dlp.heroku;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,7 +10,7 @@ import java.sql.Statement;
 
 public class PostgresConnect {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws URISyntaxException {
 		/*
 		 * String dbUri = System.getenv("JDBC_DATABASE_URL"); 
 		 * String dbURL = "jdbc:postgresql://ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d7iqsm73upk6s5";
@@ -18,11 +20,16 @@ public class PostgresConnect {
 		 */
 
 		try {
-			String dbURL = System.getenv("JDBC_DATABASE_URL"); 
+//			String dbURL = System.getenv("JDBC_DATABASE_URL"); 
 
 //			String dbURL = "jdbc:postgresql://ec2-54-74-156-137.eu-west-1.compute.amazonaws.com:5432/d7iqsm73upk6s5?sslmode=require&user=zlloqwdfjecgxu&password=fdc280399a51d7d96299a2a4b2ff5bb89a7681b18885c283b16a3e281fdcbab4";
+			
+			URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-			Connection conn = DriverManager.getConnection(dbURL);
+		    String username = dbUri.getUserInfo().split(":")[0];
+		    String password = dbUri.getUserInfo().split(":")[1];
+		    String dbURL = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+			Connection conn = DriverManager.getConnection(dbURL, username, password);
 			if (conn != null) {
 				System.out.println("Connected to Heroku Postgres");
 			}
